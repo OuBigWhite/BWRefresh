@@ -74,7 +74,4 @@ extension UIScrollView {
         }
     }
     
-    
-    
-    
 }

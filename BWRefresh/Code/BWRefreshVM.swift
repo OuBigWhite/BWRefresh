@@ -24,8 +24,6 @@ protocol BWRefreshVM: class {
     
     var refreshAction: (() -> Void)? {get}
     func stateChanged(state: BWRefreshVMState)
-    
-    
 }
 
 protocol BWRefreshHeaderProtocol: BWRefreshVM{
@@ -36,10 +34,6 @@ protocol BWRefreshHeaderProtocol: BWRefreshVM{
 protocol BWRefreshFooterProtocol: BWRefreshVM{
     //
 }
-
-
-
-
 
 var stateKey = "stateKey"
 var isShowKey = "isShowKey"
@@ -59,9 +53,6 @@ extension BWRefreshVM {
     func endRefresh() {
         self.state = .normal
     }
-    
-    
-    
 }
 
 extension BWRefreshHeaderProtocol {
@@ -75,19 +66,14 @@ extension BWRefreshHeaderProtocol {
                 self.stateChanged(state: newValue)
                 let sView = self.view.superview as! UIScrollView
                 let viewH = self.view.frame.size.height
-                var isscro = false
-                if sView.contentInset.bottom == viewH  {
-                    isscro = true
-                }
                 
                 if self.isShow && newValue == .refreshing {
                     UIView.animate(withDuration: 0.2) {[weak self, sView] in
                         sView.contentInset = UIEdgeInsets(top: viewH, left: 0, bottom: 0, right: 0)
                         self?.refreshAction?()
                     }
-                    
                 }else {
-                    UIView.animate(withDuration: 0.2) {[weak self, sView] in
+                    UIView.animate(withDuration: 0.2) {[sView] in
                         sView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                     }
                     

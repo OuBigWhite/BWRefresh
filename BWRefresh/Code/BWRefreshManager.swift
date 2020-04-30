@@ -49,7 +49,6 @@ class BWRefreshManager: NSObject {
         self.gesture?.removeObserver(self, forKeyPath: BWStateKey)
     }
     
-    
     /// 监听触发
     /// - Parameters:
     ///   - keyPath: 监听的属性
@@ -75,8 +74,6 @@ class BWRefreshManager: NSObject {
             if scrollView?.bw_header != nil {
                 self.contentOffsetKeyChangeHead()
             }
-            
-            
         }
         
         // 手势状态发生改变
@@ -140,8 +137,5 @@ class BWRefreshManager: NSObject {
             
         }
     }
-    
-    
-    
     
 }

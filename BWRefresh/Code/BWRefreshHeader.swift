@@ -43,7 +43,6 @@ class BWRefreshHeader: BWRefreshHeaderProtocol {
     
     
     func stateChanged(state: BWRefreshVMState) {
-        //
         switch state {
         case .normal:
             self.textLabel.text = "下拉刷新"
@@ -56,12 +55,10 @@ class BWRefreshHeader: BWRefreshHeaderProtocol {
                 self.textLabel.text = "刷新中..."
                 self.activityIndicator.isHidden = false
             }
-            
         }
         self.textLabel.sizeToFit()
         self.textLabel.center = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height/2)
         self.activityIndicator.center = CGPoint(x: self.textLabel.frame.origin.x - 20, y: self.textLabel.center.y)
-        
     }
     
     func setUI() {
@@ -69,9 +66,6 @@ class BWRefreshHeader: BWRefreshHeaderProtocol {
         self.view.addSubview(self.activityIndicator)
         
     }
-    
-    
-    
     
     init(action: (() -> Void)?) {
         self.setUI()

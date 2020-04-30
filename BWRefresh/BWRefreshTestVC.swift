@@ -9,10 +9,8 @@
 import UIKit
 
 class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSource  {
-
-    var activityIndicator:UIActivityIndicatorView!
-    var isShow = true
     
+    var page: Int = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "BWRefresh"
@@ -21,30 +19,13 @@ class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSour
         self.view.addSubview(self.tableView)
         
         self.loadData()
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
     }
-    @objc func stop(){
-        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
-        
-    }
-    
-    
-    
-    var page: Int = 1
     
     lazy var dataAry: Array<String> = {
         let obj = Array<String>()
         return obj
     }()
-    
-//    lazy var refreshControl: UIRefreshControl = {
-//        let con: UIRefreshControl = UIRefreshControl.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth, height: 50))
-//        con.tintColor = UIColor.lightGray
-//        con.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
-//        return con
-//    }()
-    
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -52,17 +33,14 @@ class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSour
         tableView.dataSource = self
         tableView.separatorStyle = .none // 隐藏cell分割线
         tableView.backgroundColor = .lightGray
-//        tableView.addSubview(self.refreshControl)
         let view = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 60))
         view.backgroundColor = .cyan
         tableView.tableFooterView = view
-        
         tableView.bw_header = BWRefreshHeader(action: {
             print("刷新。。。。。\(Date())")
             self.refreshData()
         })
         tableView.bw_footer = BWRefreshFooter(action: {
-            print("kaishishuaxin")
             self.loadMoreData()
         })
         
@@ -70,13 +48,6 @@ class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSour
         
         return tableView
     }()
-    
-    
-    deinit {
-        print("\(self)被销毁了")
-    }
-    
-    
     
     func refreshData(){
         self.page = 1
@@ -98,8 +69,6 @@ class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSour
             if self?.dataAry.count ?? 0 > 80 {
                 num = 12
             }
-            
-            
             for index in 0...num {
                 self?.dataAry.append("\(index)")
             }
@@ -107,12 +76,9 @@ class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSour
             self?.tableView.reloadData()
             self?.tableView.bw_header?.endRefresh()
             self?.tableView.bw_footer?.endRefresh()
-            
         }
         
-        
     }
-    
     
     //MARK:-UITableViewDelegate,UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -144,10 +110,5 @@ class BWRefreshTestVC: UIViewController, UITableViewDelegate,UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    
-    
-    
     
 }
