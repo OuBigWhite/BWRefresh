@@ -10,6 +10,11 @@ tableView.bw_header = BWRefreshHeader(action: {
 tableView.bw_footer = BWRefreshFooter(action: {
   // 上拉加载
 })
+
+// 结束刷新/加载动画
+tableView.bw_footer.endRefresh()
+tableView.bw_header.endRefresh()
+
 ```
 
 ## 自定义
